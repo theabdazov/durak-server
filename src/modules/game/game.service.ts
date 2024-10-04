@@ -12,7 +12,7 @@ export class GameService {
     private readonly repository: Repository<GameEntity>,
   ) {}
 
-  async create(createGameDto: CreateGameDto): Promise<GameDto> {
+  async create(createGameDto: CreateGameDto) {
   }
 
 }

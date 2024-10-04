@@ -5,6 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GameModule } from './modules/game/game.module';
 import { UserModule } from './modules/user/user.module';
+import { TelegramBotService } from './telegram-bot.service';
+import { GameEntity } from './modules/game/entities/game.entity';
+import { UserEntity } from './modules/user/entities/user.entity';
 
 @Module({
   imports: [
@@ -21,17 +24,20 @@ import { UserModule } from './modules/user/user.module';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [],
+        entities: [
+          GameEntity,
+          UserEntity
+        ],
         synchronize: true,
         logging: true,
       }),
       inject: [ConfigService],
     }),
     GameModule,
-    UserModule
+    UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, TelegramBotService],
 })
 export class AppModule {
 }
