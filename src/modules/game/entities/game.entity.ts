@@ -5,11 +5,12 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { CardSuit } from '../../../interfaces/game';
 
 export enum GameStatus {
-  CREATED = 'CREATED',
-  IN_PROGRESS = 'IN_PROGRESS',
-  END = 'IN_ACTIVE',
+  active = 'active',
+  completed = 'completed',
+  abandoned = 'abandoned',
 }
 
 @Entity({ name: 'games' })
@@ -20,11 +21,18 @@ export class GameEntity {
   @Column({ type: 'varchar', nullable: false })
   name: string;
 
-  @Column({ type: 'varchar', nullable: false })
+  @Column({
+    type: 'enum',
+    enum: GameStatus,
+    default: GameStatus.active,
+  })
   status: GameStatus;
 
   @Column({ type: 'bigint', nullable: false })
   ownerId: number;
+
+  @Column({ type: 'varchar', nullable: false })
+  trumpSuit: CardSuit;
 
   @CreateDateColumn({
     name: 'created_at',
