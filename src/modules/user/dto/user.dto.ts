@@ -3,13 +3,13 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class UserDto {
   @ApiProperty()
-  id: number;
+  id: string;
   @ApiProperty()
   fullName: string;
 
   constructor(user: UserEntity) {
     this.id = user.id;
-    this.fullName = user.fullName
+    this.fullName = user.fullName;
   }
 }
 

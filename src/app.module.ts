@@ -11,6 +11,7 @@ import { UserEntity } from './modules/user/entities/user.entity';
 import { GameStateEntity } from './modules/game/entities/game-state.entity';
 import { GameCardEntity } from './modules/game/entities/game-card.entity';
 import { GamePlayersEntity } from './modules/game/entities/game-players.entity';
+import { GameInviterModule } from './modules/game-inviter/game-inviter.module';
 
 @Module({
   imports: [
@@ -27,20 +28,16 @@ import { GamePlayersEntity } from './modules/game/entities/game-players.entity';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [
-          GameEntity,
-          GameStateEntity,
-          GameCardEntity,
-          GamePlayersEntity,
-          UserEntity,
-        ],
+        autoLoadEntities: true,
         synchronize: true,
         logging: true,
+        // dropSchema: true,
       }),
       inject: [ConfigService],
     }),
     GameModule,
     UserModule,
+    GameInviterModule,
   ],
   controllers: [AppController],
   providers: [AppService, TelegramBotService],

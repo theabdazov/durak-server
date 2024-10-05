@@ -21,16 +21,19 @@ export class TelegramBotService implements OnModuleInit {
 
     // Register command and message listeners
     this.bot.start(async (ctx: Context) => {
-      // await this.userService.create(ctx.from.id, ctx.from.first_name + ' ' + ctx.from.last_name);
       await ctx.reply('Ботко кош келеиниз');
       await ctx.reply(
         'Добро пожаловать! Нажмите на кнопку ниже, чтобы запустить приложение',
-        Markup.keyboard([
+        Markup.inlineKeyboard([
           Markup.button.webApp(
             'Онлайн дурак',
             this.configService.get<string>('MINI_APP_URL'),
           ),
         ]),
+      );
+      await this.userService.create(
+        ctx.from.id.toString(),
+        ctx.from.first_name + ' ' + ctx.from.last_name,
       );
     });
     this.bot.hears('hello', (ctx) => ctx.reply('Hello there!'));

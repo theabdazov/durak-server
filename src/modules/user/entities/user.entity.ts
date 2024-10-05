@@ -3,13 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   UpdateDateColumn,
-  PrimaryColumn
+  PrimaryColumn,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
 export class UserEntity {
-  @PrimaryColumn({type: 'bigint'})
-  id: number;
+  @PrimaryColumn({ type: 'bigint' })
+  id: string;
 
   @Column({ type: 'varchar', nullable: false })
   fullName: string;
