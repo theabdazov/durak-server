@@ -1,13 +1,16 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { Telegraf, Context, Markup } from 'telegraf';
 import { UserService } from './modules/user/user.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class TelegramBotService implements OnModuleInit {
   private bot: Telegraf;
 
-  constructor(private userService: UserService) {
-  }
+  constructor(
+    private userService: UserService,
+    private configService: ConfigService,
+  ) {}
 
   onModuleInit() {
     this.initBot();
@@ -23,9 +26,12 @@ export class TelegramBotService implements OnModuleInit {
       await ctx.reply(
         'Добро пожаловать! Нажмите на кнопку ниже, чтобы запустить приложение',
         Markup.keyboard([
-          Markup.button.webApp('Онлайн дурак', `https://taza-jerdesh.ru/`),
-        ])
-      )
+          Markup.button.webApp(
+            'Онлайн дурак',
+            this.configService.get<string>('MINI_APP_URL'),
+          ),
+        ]),
+      );
     });
     this.bot.hears('hello', (ctx) => ctx.reply('Hello there!'));
 
