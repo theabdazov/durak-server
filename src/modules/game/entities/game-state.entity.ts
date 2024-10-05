@@ -6,7 +6,7 @@ export interface TableCards {
   defender: Card;
 }
 
-@Entity({ name: 'game-cards' })
+@Entity({ name: 'game-state' })
 export class GameStateEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -18,5 +18,5 @@ export class GameStateEntity {
     type: 'json',
     nullable: true,
   })
-  tableCards: TableCards;
+  tableCards: any;
 }

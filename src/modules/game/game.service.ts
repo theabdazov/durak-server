@@ -88,7 +88,7 @@ export class GameService {
     for (let i = 0; i < players.length; i++) {
       for (let j = 0; j < cardsPerPlayer; j++) {
         const card = await this.cardRepository.findOne({
-          where: { game: { id: gameId }, location: GameCardLocation.deck },
+          where: { gameId: gameId, location: GameCardLocation.deck },
           order: { order: 'ASC' },
         });
 

@@ -8,6 +8,9 @@ import { UserModule } from './modules/user/user.module';
 import { TelegramBotService } from './telegram-bot.service';
 import { GameEntity } from './modules/game/entities/game.entity';
 import { UserEntity } from './modules/user/entities/user.entity';
+import { GameStateEntity } from './modules/game/entities/game-state.entity';
+import { GameCardEntity } from './modules/game/entities/game-card.entity';
+import { GamePlayersEntity } from './modules/game/entities/game-players.entity';
 
 @Module({
   imports: [
@@ -26,7 +29,10 @@ import { UserEntity } from './modules/user/entities/user.entity';
         database: configService.get<string>('DB_NAME'),
         entities: [
           GameEntity,
-          UserEntity
+          GameStateEntity,
+          GameCardEntity,
+          GamePlayersEntity,
+          UserEntity,
         ],
         synchronize: true,
         logging: true,
@@ -39,5 +45,4 @@ import { UserEntity } from './modules/user/entities/user.entity';
   controllers: [AppController],
   providers: [AppService, TelegramBotService],
 })
-export class AppModule {
-}
+export class AppModule {}
